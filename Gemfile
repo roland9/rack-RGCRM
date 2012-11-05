@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rack-core-data'
+gem 'rack-core-data', :require => 'rack/core-data'
 gem 'sequel','3.37.0'
 gem 'faker'
 
