@@ -1,4 +1,6 @@
 rack-RGCRM
 ==========
 
-xcake CRM rake demo app
+xcake CRM rack demo app
+
+to test the xcake_RGCRM project
