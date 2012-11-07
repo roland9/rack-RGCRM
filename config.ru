@@ -10,12 +10,12 @@ run Rack::CoreData('./RGCRM.xcdatamodel')
 
 def wipe_db
 	Rack::CoreData::Models::Client.each do |client|
-		puts client
+		puts "deleting: #{client}"
 		client.delete
 	end
 
 	Rack::CoreData::Models::Contact.each do |contact|
-		puts contact
+		puts "deleting: #{contact}"
 		contact.delete
 	end
 end
@@ -26,19 +26,21 @@ wipe_db
 
 if Rack::CoreData::Models::Client.count < 100
 
-	(0..5).each do
+	clientId = 1
+	contactId = 1
+
+	(0..50).each do
 		name    = Faker::Company.name
 		country = Faker::Address.country
-		client = Rack::CoreData::Models::Client.create(name: name,  country: country)
-
-		(0..3).each do
-			first_name = Faker::Name.first_name
-			last_name = Faker::Name.last_name
+		newClient = Rack::CoreData::Models::Client.create(name: name,  country: country, clientId: clientId)
+		clientId = clientId + 1
+		
+		(0..10).each do
+			firstName = Faker::Name.first_name
+			lastName = Faker::Name.last_name
 			phone = Faker::PhoneNumber.phone_number
-			contact = Rack::CoreData::Models::Contact.create(firstName:first_name, lastName:last_name, phone: phone, clients: client) 
+			contact = Rack::CoreData::Models::Contact.create(firstName: firstName, lastName: lastName, phone: phone, contactId: contactId, client: newClient) 
+			contactId = contactId + 1
 		end
-
-		
-		
 	end
 end
